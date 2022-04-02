@@ -5,6 +5,7 @@
 	var container = document.querySelector('.text');
 	var target = document.querySelector('.logo');
 	var resizer = new Resizer(container, target);
+	window.resizer = resizer;
 
 	// wait for the font to load.
 	document.fonts.ready.then(function () {

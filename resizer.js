@@ -44,6 +44,7 @@ class Resizer {
 	 * @returns 
 	 */
 	hasOverflow(container, targetWidth) {
+		/*
 		const elements = container.querySelectorAll('*');
 		for (let i = 0; i < elements.length; i++) {
 			const el = elements[i];
@@ -53,5 +54,9 @@ class Resizer {
 				return true;
 			}
 		}
+		*/
+		// const rect = container.getBoundingClientRect();
+		// console.log(container, rect, container.scrollWidth, container.clientWidth);
+		return (container.scrollWidth > targetWidth);
 	}
 }
