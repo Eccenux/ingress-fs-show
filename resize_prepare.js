@@ -15,10 +15,21 @@
 
 	// check for text changes
 	const config = { childList: true, subtree: true, characterData: true };
+	let mutationDelayMs = 500;
+	let mutationDelayId = -1;
 	const observer = new MutationObserver((mutationsList) => {
-		//console.log({mutationsList});
-		console.log('resize on mutation');
-		resizer.resize();
+		if (mutationDelayId > 0) {
+			// clear => minimum mutationDelayMs (debouncing)
+			clearTimeout(mutationDelayId);
+			// return => at most mutationDelayMs (throttling)
+			//return;
+		}
+		mutationDelayId = setTimeout(() => {
+			mutationDelayId = -1;
+			//console.log({mutationsList});
+			console.log('resize on mutation');
+			resizer.resize();
+		}, mutationDelayMs);
 	});
 	observer.observe(container, config);
 
