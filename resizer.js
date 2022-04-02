@@ -2,7 +2,7 @@
  * Resize helper
  */
 class Resizer {
-	//Resizer = class {
+//Resizer = class {
 	/**
 	 * @param {Element} container 
 	 * @param {Element} target 
@@ -10,6 +10,10 @@ class Resizer {
 	constructor(container, target) {
 		this.container = container;
 		this.target = target;
+
+		this.minFont = 5;
+		this.maxFont = 25;
+		this.step = 0.2;
 	}
 
 	/**
@@ -18,10 +22,10 @@ class Resizer {
 	resize() {
 		const targetWidth = this.target.offsetWidth + 1;
 		const container = this.container;
-		const startSize = 25;
-		for (let size = startSize; size > 5; size -= 0.2) {
+		const startSize = this.maxFont;
+		for (var size = startSize; size >= this.minFont; size -= this.step) {
 			container.style.fontSize = "" + size + 'vw';
-			if (!hasOverflow(container, targetWidth)) {
+			if (!this.hasOverflow(container, targetWidth)) {
 				break;
 			}
 		}
@@ -41,7 +45,7 @@ class Resizer {
 	 */
 	hasOverflow(container, targetWidth) {
 		const elements = container.querySelectorAll('*');
-		for (let i = 0; i < all.length; i++) {
+		for (let i = 0; i < elements.length; i++) {
 			const el = elements[i];
 			const rect = el.getBoundingClientRect();
 			if (rect.width > targetWidth || rect.left < 0) {
@@ -51,7 +55,3 @@ class Resizer {
 		}
 	}
 }
-
-var container = document.querySelector('.text');
-var target = document.querySelector('.logo');
-var resizer = new Resizer(container, target);
