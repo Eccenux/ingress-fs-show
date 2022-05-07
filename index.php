@@ -1,10 +1,15 @@
-﻿<!doctype html>
+﻿<?php
+	$fs_name = empty($_GET['fs']) ? 'Gdynia' : trim(htmlspecialchars($_GET['fs']));
+	$fs_inject = explode(' ', $fs_name);
+	$fs_inject = '<div>' . implode('</div><div>', $fs_inject) . '</div>';
+?>
+<!doctype html>
 <html lang="pl">
 <head>
 <meta charset="utf-8">
 <link rel="shortcut icon" href="extras/FS-icon.png">
 <meta name='viewport' content='width=device-width, initial-scale=1'>
-<title>FS Gdynia</title>
+<title>FS selfie - <?=$fs_name?></title>
 </head>
 <body>
 <!--
@@ -52,6 +57,29 @@ img {
 img.logo {
 	filter: grayscale() invert(100%) contrast(3);
 }
+
+/* full screen button (not to visible on the photo) */
+.non-photo-btn {
+	display: block;
+	background-color: transparent;
+	border-color: transparent;
+	width: 100%;
+	box-sizing: border-box;
+	padding: 1em;
+
+	color:#eee;
+	text-align: center;
+	font-size: 20pt
+}
+
+.non-photo-btn {
+	opacity: 1;
+	transition: opacity 3s;
+}
+body.loaded .non-photo-btn {
+	opacity: .05;
+}
+
 </style>
 
 <main>
@@ -60,8 +88,13 @@ img.logo {
 	<br>osobliwość
 -->
 <div class="text" contenteditable spellcheck="false">
-	Gdynia <span id="date_auto">2022</span>
+	<?=$fs_inject?> <span id="date_auto">2022</span>
 </div>
+<script>
+window.onload = function() {
+	document.body.className += " loaded";
+}
+</script>
 <script>
 	(function() {
 		var options = { year: 'numeric', month: 'numeric'};
@@ -73,13 +106,12 @@ img.logo {
 	<img class="logo" src="extras/FS-logo.png"
 	/>
 </div>
-<div
+<button class="non-photo-btn"
 	onclick="document.fullscreenElement!=null ? document.exitFullscreen() : document.body.requestFullscreen()" 
-	style="color:#111; text-align: center; font-size: 20pt"
 >
 	<div>pełny ekran</div>
 	<div>full screen</div>
-</div>
+</button>
 <!--
 <div>
 	<img class="logo_" src="extras/FS-logo-globe.png"
