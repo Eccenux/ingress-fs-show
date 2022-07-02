@@ -33,6 +33,13 @@ body {
 }
 main {
 	margin: 20px;
+	text-align: center;
+}
+
+@media screen and (min-width: 920px) {
+	main {
+		margin: 20px auto;
+	}
 }
 
 main {
